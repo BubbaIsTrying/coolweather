@@ -130,9 +130,9 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
-        String bingPic=sharedPreferences.getString("bing_pic",null);
-        if(bingPic!=null){
-            Glide.with(this).load(bingPic).into(bingPicImg);
+        String bingPicLink=sharedPreferences.getString("bing_pic",null);
+        if(bingPicLink!=null){
+            Glide.with(this).load(bingPicLink).into(bingPicImg);
         }else{
             loadBingPic();
         }
