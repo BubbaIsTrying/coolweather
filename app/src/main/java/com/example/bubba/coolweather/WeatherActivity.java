@@ -157,6 +157,7 @@ public class WeatherActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor=PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
                             editor.putString("weather",responseText);
                             editor.apply();
+                            mWeatherId=weather.basic.weatherId;//修复重新选择城市之后下拉更新出现更新之前城市信息的bug
                             showWeatherInfo(weather);
 
                             Intent intent=new Intent(WeatherActivity.this,AutoUpdateService.class);
@@ -260,5 +261,21 @@ public class WeatherActivity extends AppCompatActivity {
 
 
         });
+
+
     }
+
+
+    /**
+     *修复重新选择城市之后下拉更新出现更新之前城市信息的bug
+     * bug出现是因为使用之前的weatherId进行重新进行网络信息请求
+     * 通过重新查询的方法修复 但是代码重复类聚
+     */
+    /*
+    private Weather queryFromSharedPreferencesForRefreshing(){
+        SharedPreferences sharedPreferences1=PreferenceManager.getDefaultSharedPreferences(this);
+        String weatherString=sharedPreferences1.getString("weather",null);
+        return Utility.onHandleWeatherResponse(weatherString);
+    }
+    */
 }
